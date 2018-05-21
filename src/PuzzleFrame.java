@@ -9,8 +9,14 @@ import javax.swing.JPanel;
 
 public class PuzzleFrame extends JPanel {
 	Image original;
+	
 	public PuzzleFrame() {
 		super();
+		try {
+			original = ImageIO.read(new File("greencar2.png"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
@@ -19,11 +25,13 @@ public class PuzzleFrame extends JPanel {
 		drawOriginal(g);
 	}
 	public void drawOriginal(Graphics g) {
+		g.drawImage(original, 0, 0, null);
+	}
+	public void changeImage(String filePath) {
 		try {
-			original = ImageIO.read(new File("greencar2.png"));
+			original = ImageIO.read(new File(filePath));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		g.drawImage(original, 0, 0, null);
 	}
 }

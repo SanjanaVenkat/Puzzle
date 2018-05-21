@@ -65,6 +65,10 @@ public class Puzzle implements ActionListener, MouseListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource().equals(makePuzzle)) {
+			String filePath = filepathtf.getText();
+			System.out.println(filePath);
+			puzzleFrame.changeImage(filePath);
+			frame.repaint();
 		}
 	}
 
