@@ -30,6 +30,8 @@ public class Puzzle implements ActionListener, MouseListener{
 	Container south = new Container();
 	int tallyCount;
 	Image original; 
+	
+	
 	//constructor
 	public Puzzle() {
 	frame.setSize(1000, 1000);
