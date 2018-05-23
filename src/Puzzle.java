@@ -27,7 +27,11 @@ public class Puzzle implements ActionListener, MouseListener{
 	JButton makePuzzle = new JButton("Make Puzzle");
 	Container south = new Container();
 	int tallyCount;
+
 	
+
+	Image original; 
+	//constructor
 	public Puzzle() {
 	frame.setSize(1000, 1000);
 	frame.setLayout(new BorderLayout());
