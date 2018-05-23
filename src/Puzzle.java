@@ -1,6 +1,5 @@
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -19,7 +18,6 @@ import javax.swing.JTextField;
 public class Puzzle implements ActionListener, MouseListener{
 
 	JFrame frame = new JFrame();
-	PuzzleFrame puzzleFrame = new PuzzleFrame();
 	JLabel rowlb = new JLabel("Rows:");
 	JTextField rowtf = new JTextField(" ");
 	JLabel columnlb = new JLabel("Columns:");
@@ -29,7 +27,6 @@ public class Puzzle implements ActionListener, MouseListener{
 	JButton makePuzzle = new JButton("Make Puzzle");
 	Container south = new Container();
 	int tallyCount;
-	Image original; 
 	
 	public Puzzle() {
 	frame.setSize(1000, 1000);
@@ -42,20 +39,16 @@ public class Puzzle implements ActionListener, MouseListener{
 	south.add(columnlb);
 	south.add(columntf);
 	south.add(makePuzzle);
-	frame.add(puzzleFrame, BorderLayout.CENTER);
 	makePuzzle.addActionListener(this);
 	frame.addMouseListener(this);
 	frame.add(south, BorderLayout.SOUTH);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.setVisible(true);	
 
-	try {
-		original = ImageIO.read(new File("greencar2.png"));
-	} catch (IOException e) {
-		e.printStackTrace();
+	
+		
 	}
 	
-	}
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
 		new Puzzle();
@@ -64,12 +57,7 @@ public class Puzzle implements ActionListener, MouseListener{
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
-		if(e.getSource().equals(makePuzzle)) {
-			String filePath = filepathtf.getText();
-			System.out.println(filePath);
-			puzzleFrame.changeImage(filePath);
-			frame.repaint();
-		}
+		
 	}
 
 	@Override
