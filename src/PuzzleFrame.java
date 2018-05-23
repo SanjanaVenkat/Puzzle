@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Image;
+import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
 
@@ -8,7 +9,9 @@ import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class PuzzleFrame extends JPanel {
-	Image original;
+	BufferedImage original;
+	int widthImage;
+	int heightImage;
 	
 	public PuzzleFrame() {
 		super();
@@ -33,5 +36,16 @@ public class PuzzleFrame extends JPanel {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+		widthImage = original.getWidth();
+		heightImage = original.getHeight();
+	}
+	
+	//getter for image height
+	public int getImageHeight() {
+		return heightImage;
+	}
+	//getter for image width
+	public int getImageWidth() {
+		return widthImage;
 	}
 }

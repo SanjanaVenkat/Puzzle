@@ -31,8 +31,6 @@ public class Puzzle implements ActionListener, MouseListener{
 	int tallyCount;
 	Image original; 
 	
-	
-	//constructor
 	public Puzzle() {
 	frame.setSize(1000, 1000);
 	frame.setLayout(new BorderLayout());
@@ -70,10 +68,11 @@ public class Puzzle implements ActionListener, MouseListener{
 			String filePath = filepathtf.getText();
 			System.out.println(filePath);
 			puzzleFrame.changeImage(filePath);
+			frame.setSize(puzzleFrame.getImageWidth(), puzzleFrame.getImageHeight() + 50);
 			frame.repaint();
 		}
 	}
-
+//
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
