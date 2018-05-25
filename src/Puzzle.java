@@ -77,7 +77,7 @@ public class Puzzle implements ActionListener, MouseListener{
 			frame.repaint();
 		}
 	}
-//
+
 	@Override
 	public void mouseClicked(MouseEvent arg0) {
 		// TODO Auto-generated method stub
