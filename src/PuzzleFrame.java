@@ -11,6 +11,8 @@ public class PuzzleFrame extends JPanel {
 	BufferedImage original;
 	int widthImage;
 	int heightImage;
+	int columns;
+	int rows;
 	
 	public PuzzleFrame() {
 		super();
@@ -46,5 +48,13 @@ public class PuzzleFrame extends JPanel {
 	//getter for image width
 	public int getImageWidth() {
 		return widthImage;
+	}
+	//setter for columns
+	public void setColumns(int columns2) {
+		columns = columns2;
+	}
+	//setter for rows
+	public void setRows(int rows2) {
+		rows = rows2;
 	}
 }

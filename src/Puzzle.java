@@ -68,7 +68,8 @@ public class Puzzle implements ActionListener, MouseListener{
 			String filePath = filepathtf.getText();
 			System.out.println(filePath);
 			puzzleFrame.changeImage(filePath);
-
+			puzzleFrame.setRows(Integer.parseInt(rowtf.getText()));
+			puzzleFrame.setColumns(Integer.parseInt(columntf.getText()));
 			frame.setSize(500, 500);
 
 			frame.setSize(puzzleFrame.getImageWidth(), puzzleFrame.getImageHeight() + 50);
