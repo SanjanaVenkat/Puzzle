@@ -72,7 +72,8 @@ public class Puzzle implements ActionListener, MouseListener{
 			frame.setSize(500, 500);
 
 			frame.setSize(puzzleFrame.getImageWidth(), puzzleFrame.getImageHeight() + 50);
-
+			puzzleFrame.splitImage();
+			puzzleFrame.scrambleImages();
 			frame.repaint();
 		}
 	}

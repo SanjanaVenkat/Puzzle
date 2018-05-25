@@ -12,7 +12,7 @@ public class PuzzleFrame extends JPanel {
 	int columns;
 	BufferedImage original;
 	BufferedImage[][] newImages;
-	
+	BufferedImage[][] scrambledImages;
 	int widthImage;
 	int heightImage;
 	boolean drawImage;
@@ -69,12 +69,27 @@ public class PuzzleFrame extends JPanel {
 	public void splitImage() {
 		newImages = new BufferedImage[rows][columns];
 		for (int i = 0; i < newImages.length; i++) {
-			for (int j = 0; j < newImages.length; j++) {
+			for (int j = 0; j < newImages[i].length; j++) {
 				newImages[i][j] = original.getSubimage((original.getWidth() / columns) * i, (original.getHeight() / rows) * j,
 						original.getWidth() / columns, original.getHeight() / rows);
 			}
 		}
 	drawImage = true;
+	}
+	public void scrambleImages() {
+		scrambledImages = new BufferedImage[rows][columns];
+		for (int i = 0; i < newImages.length; i++) {
+			for (int j = 0; j < newImages[i].length; j++) {
+				int newi = (int)( Math.random() * rows);
+				int newj = (int)( Math.random() * columns);
+				while (!(newi != i && newj != j && newImages[newi][newj]==null)) {
+					newi = (int)( Math.random() * rows);
+					newj = (int)( Math.random() * columns);
+				}
+				scrambledImages[newi][newj] = newImages[i][j];
+			}
+		}
+
 	}
 }
 //
