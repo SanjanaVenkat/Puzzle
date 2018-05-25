@@ -12,6 +12,7 @@ public class PuzzleFrame extends JPanel {
 	int columns;
 	BufferedImage original;
 	BufferedImage[][] newImages;
+	
 	int widthImage;
 	int heightImage;
 	boolean drawImage;
