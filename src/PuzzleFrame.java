@@ -76,3 +76,4 @@ public class PuzzleFrame extends JPanel {
 	drawImage = true;
 	}
 }
+//
