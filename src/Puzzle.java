@@ -21,11 +21,11 @@ public class Puzzle implements ActionListener, MouseListener{
 	JFrame frame = new JFrame();
 	PuzzleFrame puzzleFrame = new PuzzleFrame();
 	JLabel rowlb = new JLabel("Rows:");
-	JTextField rowtf = new JTextField(" ");
+	JTextField rowtf = new JTextField("");
 	JLabel columnlb = new JLabel("Columns:");
-	JTextField columntf = new JTextField(" ");
+	JTextField columntf = new JTextField("");
 	JLabel filepathlb = new JLabel("File Name:");
-	JTextField filepathtf = new JTextField(" ");
+	JTextField filepathtf = new JTextField("");
 	JButton makePuzzle = new JButton("Make Puzzle");
 	Container south = new Container();
 	int tallyCount;
@@ -68,12 +68,13 @@ public class Puzzle implements ActionListener, MouseListener{
 			String filePath = filepathtf.getText();
 			System.out.println(filePath);
 			puzzleFrame.changeImage(filePath);
-			
-			frame.setSize(500, 500);
-
+			puzzleFrame.setRows(Integer.parseInt(rowtf.getText()));
+			puzzleFrame.setColumns(Integer.parseInt(columntf.getText()));
 			frame.setSize(puzzleFrame.getImageWidth(), puzzleFrame.getImageHeight() + 50);
 			puzzleFrame.splitImage();
+			System.out.println("split images has been run. new images is this long: " + puzzleFrame.newImages.length);
 			puzzleFrame.scrambleImages();
+			System.out.println("Scramble has been run");
 			frame.repaint();
 		}
 	}

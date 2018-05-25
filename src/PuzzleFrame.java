@@ -66,10 +66,24 @@ public class PuzzleFrame extends JPanel {
 		return widthImage;
 	}
 	
+	public void setRows(int rows2) {
+		rows = rows2;
+	}
+	
+	public void setColumns(int columns2) {
+		columns = columns2;
+	}
 	public void splitImage() {
 		newImages = new BufferedImage[rows][columns];
-		for (int i = 0; i < newImages.length; i++) {
-			for (int j = 0; j < newImages[i].length; j++) {
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				int x = original.getWidth();
+				int y = original.getHeight();
+				System.out.println("dimension: " + x + "x" + y);
+				System.out.println("start " + (original.getWidth() / columns) * i);
+				System.out.println("end " + (original.getHeight() / rows) * j);
+				System.out.println("width " + original.getWidth() / columns);
+				System.out.println("height " + original.getHeight() / rows);
 				newImages[i][j] = original.getSubimage((original.getWidth() / columns) * i, (original.getHeight() / rows) * j,
 						original.getWidth() / columns, original.getHeight() / rows);
 			}
@@ -78,14 +92,16 @@ public class PuzzleFrame extends JPanel {
 	}
 	public void scrambleImages() {
 		scrambledImages = new BufferedImage[rows][columns];
+		System.out.println(newImages.length);
 		for (int i = 0; i < newImages.length; i++) {
 			for (int j = 0; j < newImages[i].length; j++) {
 				int newi = (int)( Math.random() * rows);
 				int newj = (int)( Math.random() * columns);
-				while (!(newi != i && newj != j && newImages[newi][newj]==null)) {
+				while (!(newi != i && newj != j && newImages[newi][newj] == null)) {
 					newi = (int)( Math.random() * rows);
 					newj = (int)( Math.random() * columns);
 				}
+				System.out.println(newi + '.' + newj);
 				scrambledImages[newi][newj] = newImages[i][j];
 			}
 		}
