@@ -78,8 +78,8 @@ public class PuzzleFrame extends JPanel {
 	}
 	public void scrambleImages() {
 		scrambledImages = new BufferedImage[rows][columns];
-		for (int i = 0; i < newImages.length; i++) {
-			for (int j = 0; j < newImages[i].length; j++) {
+		for (int i = 0; i < scrambledImages.length; i++) {
+			for (int j = 0; j < scrambledImages[i].length; j++) {
 				int newi = (int)( Math.random() * rows);
 				int newj = (int)( Math.random() * columns);
 				while (!(newi != i && newj != j && newImages[newi][newj]==null)) {

@@ -21,9 +21,9 @@ public class Puzzle implements ActionListener, MouseListener{
 	JFrame frame = new JFrame();
 	PuzzleFrame puzzleFrame = new PuzzleFrame();
 	JLabel rowlb = new JLabel("Rows:");
-	JTextField rowtf = new JTextField(" ");
+	JTextField rowtf = new JTextField("");
 	JLabel columnlb = new JLabel("Columns:");
-	JTextField columntf = new JTextField(" ");
+	JTextField columntf = new JTextField("");
 	JLabel filepathlb = new JLabel("File Name:");
 	JTextField filepathtf = new JTextField(" ");
 	JButton makePuzzle = new JButton("Make Puzzle");
