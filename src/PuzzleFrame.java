@@ -32,18 +32,19 @@ public class PuzzleFrame extends JPanel {
 		g.fillRect(0, 0, getWidth(), getHeight());
 		if (drawImage == false) {
 		drawOriginal(g);
+		System.out.println("drew original");
 		}
-		else if (drawImage == true) {
-		 drawnewImages(g);
+		else {
+		  drawnewImages(g);
 		}
 	}
 	public void drawOriginal(Graphics g) {
 		g.drawImage(original, 0, 0, null);
 	}
 	public void drawnewImages(Graphics g) {
-		for (int i = 0; i < newImages.length; i++) {
-			for (int j = 0; j < newImages.length; j++) {
-				g.drawImage(newImages[i][j], (original.getWidth() / columns) * i, (original.getHeight() / rows) * j, null );
+		for (int i = 0; i < scrambledImages.length; i++) {
+			for (int j = 0; j < scrambledImages[0].length; j++) {
+				g.drawImage(scrambledImages[i][j], (original.getWidth() / columns) * i, (original.getHeight() / rows) * j, null );
 			}
 		}
 	}
@@ -79,16 +80,18 @@ public class PuzzleFrame extends JPanel {
 			for (int j = 0; j < columns; j++) {
 				int x = original.getWidth();
 				int y = original.getHeight();
+				System.out.println("i: " + i);
+				System.out.println("j " + j);
 				System.out.println("dimension: " + x + "x" + y);
-				System.out.println("start " + (original.getWidth() / columns) * i);
-				System.out.println("end " + (original.getHeight() / rows) * j);
+				System.out.println("startx " + (original.getHeight() / rows) * i);
+				System.out.println("starty " + (original.getWidth() / columns) * j);
 				System.out.println("width " + original.getWidth() / columns);
 				System.out.println("height " + original.getHeight() / rows);
-				newImages[i][j] = original.getSubimage((original.getWidth() / columns) * i, (original.getHeight() / rows) * j,
+				newImages[i][j] = original.getSubimage((original.getWidth() / columns) * j, (original.getHeight() / rows) * i,
 						original.getWidth() / columns, original.getHeight() / rows);
 			}
 		}
-	drawImage = true;
+
 	}
 	public void scrambleImages() {
 		scrambledImages = new BufferedImage[rows][columns];
@@ -97,14 +100,16 @@ public class PuzzleFrame extends JPanel {
 			for (int j = 0; j < newImages[i].length; j++) {
 				int newi = (int)( Math.random() * rows);
 				int newj = (int)( Math.random() * columns);
-				while (!(newi != i && newj != j && newImages[newi][newj] == null)) {
+				while (!(newi != i || newj != j || scrambledImages[newi][newj] != null)) {
+					//System.out.println("new i: " + newi + " newj: " + newj);
 					newi = (int)( Math.random() * rows);
 					newj = (int)( Math.random() * columns);
 				}
-				System.out.println(newi + '.' + newj);
+				//System.out.println(newi + '.' + newj);
 				scrambledImages[newi][newj] = newImages[i][j];
 			}
 		}
+		drawImage = true;
 
 	}
 }
