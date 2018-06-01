@@ -16,6 +16,7 @@ public class PuzzleFrame extends JPanel {
 	int widthImage;
 	int heightImage;
 	boolean drawImage;
+	boolean won = false;
 	
 	
 	public PuzzleFrame() {
@@ -127,6 +128,21 @@ public class PuzzleFrame extends JPanel {
 			}
 			System.out.println(outline);
 			outline = "";
+		}
+	}
+	public void checkWin() {
+	for (int i = 0; i < scrambledImages.length; i++) {
+		for (int j = 0; j < scrambledImages[i].length; j++) {
+			if (scrambledImages[i][j] == newImages[i][j]) {
+				won = true;
+			}
+		}
+	}
+	}
+	
+	public void showCompleted() {
+		if (won == true) {
+			System.out.println("You have solved the puzzle!");
 		}
 	}
 }
