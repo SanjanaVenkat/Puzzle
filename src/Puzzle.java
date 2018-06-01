@@ -134,6 +134,7 @@ public class Puzzle implements ActionListener, MouseListener{
 			int secondy = y / heightSq;
 			puzzleFrame.swap(firstx, firsty, secondx, secondy);
 			frame.repaint();
+			puzzleFrame.checkWin();
 			//check correct
 			state = FIRST;
 		}

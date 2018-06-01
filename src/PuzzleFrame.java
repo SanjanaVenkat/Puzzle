@@ -135,20 +135,22 @@ public class PuzzleFrame extends JPanel {
 			outline = "";
 		}
 	}
-	public void checkWin() {
+	public boolean checkWin() {
 	for (int i = 0; i < scrambledImages.length; i++) {
 		for (int j = 0; j < scrambledImages[i].length; j++) {
-			if (scrambledImages[i][j] == newImages[i][j]) {
-				won = true;
+			if (scrambledImages[i][j] != newImages[i][j]) {
+				return false;
 			}
 		}
 	}
+	showCompleted();
+	return true;
 	}
 	
 	public void showCompleted() {
-		if (won == true) {
+		
 			System.out.println("You have solved the puzzle!");
-		}
+		
 		}
 
 	public void swap(int firstx, int firsty, int secondx, int secondy) {
