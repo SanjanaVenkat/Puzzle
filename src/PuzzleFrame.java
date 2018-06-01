@@ -13,6 +13,9 @@ public class PuzzleFrame extends JPanel {
 	BufferedImage original;
 	BufferedImage[][] newImages;
 	BufferedImage[][] scrambledImages;
+	final Color highlight = new Color(153, 50, 204, 150);
+	int[] highlighted = new int[2];
+	boolean doHighlight = false;
 	int widthImage;
 	int heightImage;
 	boolean drawImage;
@@ -33,7 +36,6 @@ public class PuzzleFrame extends JPanel {
 		g.fillRect(0, 0, getWidth(), getHeight());
 		if (drawImage == false) {
 		drawOriginal(g);
-		System.out.println("drew original");
 		}
 		else {
 		  drawnewImages(g);
@@ -44,11 +46,16 @@ public class PuzzleFrame extends JPanel {
 	}
 	public void drawnewImages(Graphics g) {
 		System.out.println("drawing puzzle");
-		printScrambled();
 		for (int i = 0; i < scrambledImages.length; i++) {
 			for (int j = 0; j < scrambledImages[0].length; j++) {
 				g.drawImage(scrambledImages[i][j], (original.getWidth() / columns) * j, (original.getHeight() / rows) * i, null );
 			}
+		}
+		System.out.println(highlighted[0] + "," + highlighted[1]);
+		if(doHighlight) {
+			System.out.println("highlighting!");
+			g.setColor(highlight);
+			g.fillRect(highlighted[1] * (widthImage / columns), highlighted[0] * (heightImage / rows), widthImage / columns, heightImage / rows);
 		}
 	}
 	public void changeImage(String filePath) {
@@ -60,7 +67,14 @@ public class PuzzleFrame extends JPanel {
 		widthImage = original.getWidth();
 		heightImage = original.getHeight();
 	}
-	
+	public void clearHighlight() {
+		doHighlight = false;
+	}
+	public void highlight(int column, int row) {
+		highlighted[0] = row;
+		highlighted[1] = column;
+		doHighlight = true;
+	}
 	//getter for image height
 	public int getImageHeight() {
 		return heightImage;
