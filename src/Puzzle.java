@@ -30,6 +30,12 @@ public class Puzzle implements ActionListener, MouseListener{
 	Container south = new Container();
 	int tallyCount;
 	Image original; 
+	int firstx;
+	int firsty;
+	final int NOT_PLAYING = 0;
+	final int FIRST = 1;
+	final int SECOND = 2;
+	int state = NOT_PLAYING;
 	
 	public Puzzle() {
 	frame.setSize(1000, 1000);
@@ -75,6 +81,7 @@ public class Puzzle implements ActionListener, MouseListener{
 			System.out.println("split images has been run. new images is this long: " + puzzleFrame.newImages.length);
 			puzzleFrame.scrambleImages();
 			System.out.println("Scramble has been run");
+			state = FIRST;
 			frame.repaint();
 		}
 	}
@@ -107,6 +114,28 @@ public class Puzzle implements ActionListener, MouseListener{
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
 		System.out.println(e.getX() + "," + e.getY());
+		int x = e.getX();
+		int y = e.getY();
+		int widthSq = puzzleFrame.getImageWidth() / puzzleFrame.getColumns();
+		int heightSq = puzzleFrame.getImageHeight() / puzzleFrame.getRows();
+		if(state == FIRST) {
+			//calculate indexes and store as first x and first y
+			firstx = x / widthSq;
+			firsty = y / heightSq;
+			System.out.println("firstx,y: " + firstx + "," + firsty);
+			//highlight
+			
+			state = SECOND;
+			
+		}
+		else if(state == SECOND) {
+			//calculate indexes of second image and swap.
+			int secondx = x / widthSq;
+			int secondy = y / heightSq;
+			puzzleFrame.swap(firstx, firsty, secondx, secondy);
+			frame.repaint();
+			//check correct
+			state = FIRST;
+		}
 	}
-
 }

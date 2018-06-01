@@ -73,9 +73,14 @@ public class PuzzleFrame extends JPanel {
 	public void setRows(int rows2) {
 		rows = rows2;
 	}
-	
+	public int getRows() {
+		return rows;
+	}
 	public void setColumns(int columns2) {
 		columns = columns2;
+	}
+	public int getColumns() {
+		return columns;
 	}
 	public void splitImage() {
 		newImages = new BufferedImage[rows][columns];
@@ -144,6 +149,13 @@ public class PuzzleFrame extends JPanel {
 		if (won == true) {
 			System.out.println("You have solved the puzzle!");
 		}
+		}
+
+	public void swap(int firstx, int firsty, int secondx, int secondy) {
+		BufferedImage firstImage = scrambledImages[firsty][firstx];
+		scrambledImages[firsty][firstx] = scrambledImages[secondy][secondx];
+		scrambledImages[secondy][secondx] = firstImage;
+
 	}
 }
 //
