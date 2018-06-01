@@ -42,9 +42,11 @@ public class PuzzleFrame extends JPanel {
 		g.drawImage(original, 0, 0, null);
 	}
 	public void drawnewImages(Graphics g) {
+		System.out.println("drawing puzzle");
+		printScrambled();
 		for (int i = 0; i < scrambledImages.length; i++) {
 			for (int j = 0; j < scrambledImages[0].length; j++) {
-				g.drawImage(scrambledImages[i][j], (original.getWidth() / columns) * i, (original.getHeight() / rows) * j, null );
+				g.drawImage(scrambledImages[i][j], (original.getWidth() / columns) * j, (original.getHeight() / rows) * i, null );
 			}
 		}
 	}
@@ -91,16 +93,15 @@ public class PuzzleFrame extends JPanel {
 						original.getWidth() / columns, original.getHeight() / rows);
 			}
 		}
-
 	}
 	public void scrambleImages() {
 		scrambledImages = new BufferedImage[rows][columns];
 		System.out.println(newImages.length);
 		for (int i = 0; i < newImages.length; i++) {
 			for (int j = 0; j < newImages[i].length; j++) {
-				int newi = (int)( Math.random() * rows);
-				int newj = (int)( Math.random() * columns);
-				while (!(newi != i || newj != j || scrambledImages[newi][newj] != null)) {
+				int newi = (int)(Math.random() * rows);
+				int newj = (int)(Math.random() * columns);
+				while ((newi == i && newj == j) || scrambledImages[newi][newj] != null) {
 					//System.out.println("new i: " + newi + " newj: " + newj);
 					newi = (int)( Math.random() * rows);
 					newj = (int)( Math.random() * columns);
@@ -108,9 +109,25 @@ public class PuzzleFrame extends JPanel {
 				//System.out.println(newi + '.' + newj);
 				scrambledImages[newi][newj] = newImages[i][j];
 			}
+			printScrambled();
 		}
 		drawImage = true;
 
+	}
+	public void printScrambled() {
+		String outline = "";
+		for (int i = 0; i < scrambledImages.length; i++) {
+			for (int j = 0; j < scrambledImages[i].length; j++) {
+				if(scrambledImages[i][j] == null) {
+					outline += "O";
+				}
+				else {
+					outline += "X";
+				}
+			}
+			System.out.println(outline);
+			outline = "";
+		}
 	}
 }
 //

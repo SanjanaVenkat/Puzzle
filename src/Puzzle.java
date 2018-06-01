@@ -70,7 +70,7 @@ public class Puzzle implements ActionListener, MouseListener{
 			puzzleFrame.changeImage(filePath);
 			puzzleFrame.setRows(Integer.parseInt(rowtf.getText()));
 			puzzleFrame.setColumns(Integer.parseInt(columntf.getText()));
-			frame.setSize(puzzleFrame.getImageWidth(), puzzleFrame.getImageHeight() + 50);
+			frame.setSize(puzzleFrame.getImageWidth(), puzzleFrame.getImageHeight() + 60);
 			puzzleFrame.splitImage();
 			System.out.println("split images has been run. new images is this long: " + puzzleFrame.newImages.length);
 			puzzleFrame.scrambleImages();
