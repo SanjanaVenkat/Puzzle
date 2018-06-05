@@ -132,7 +132,8 @@ public class Puzzle implements ActionListener, MouseListener{
 			firsty = y / heightSq;
 			//System.out.println("firstx,y: " + firstx + "," + firsty);
 			//highlight
-			
+			puzzleFrame.highlight(firstx, firsty);
+			frame.repaint();
 			state = SECOND;
 			
 		}
@@ -141,12 +142,14 @@ public class Puzzle implements ActionListener, MouseListener{
 			int secondx = x / widthSq;
 			int secondy = y / heightSq;
 			puzzleFrame.swap(firstx, firsty, secondx, secondy);
+			puzzleFrame.clearHighlight();
 			frame.repaint();
 			puzzleFrame.checkWin();
 			 if (puzzleFrame.checkWin() == true) {
 				 JOptionPane.showMessageDialog(frame, "Congratulations! You have solved the puzzle!");
 			 }
 			//check correct
+			
 			state = FIRST;
 		}
 	}

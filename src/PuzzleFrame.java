@@ -17,11 +17,14 @@ public class PuzzleFrame extends JPanel {
 	BufferedImage original;
 	BufferedImage[][] newImages;
 	BufferedImage[][] scrambledImages;
+	final Color highlight = new Color(153, 50, 204, 150);
+	int[] highlighted = new int[2];
+	boolean doHighlight = false;
 	int widthImage;
 	int heightImage;
 	boolean drawImage;
 	boolean won = false;
-	
+	int move = 0;
 	//starts with kitten image
 	public PuzzleFrame() {
 		super();
@@ -38,7 +41,8 @@ public class PuzzleFrame extends JPanel {
 		g.fillRect(0, 0, getWidth(), getHeight());
 		if (drawImage == false) {
 		drawOriginal(g);
-		//System.out.println("drew original");
+	
+
 		}
 		//drawn new image
 		else {
@@ -51,11 +55,17 @@ public class PuzzleFrame extends JPanel {
 	}
 	//draws puzzle of scrambled images
 	public void drawnewImages(Graphics g) {
-		//System.out.println("drawing puzzle");
+
 		for (int i = 0; i < scrambledImages.length; i++) {
 			for (int j = 0; j < scrambledImages[0].length; j++) {
 				g.drawImage(scrambledImages[i][j], (original.getWidth() / columns) * j, (original.getHeight() / rows) * i, null );
 			}
+		}
+		//System.out.println(highlighted[0] + "," + highlighted[1]);
+		if(doHighlight) {
+			//System.out.println("highlighting!");
+			g.setColor(highlight);
+			g.fillRect(highlighted[1] * (widthImage / columns), highlighted[0] * (heightImage / rows), widthImage / columns, heightImage / rows);
 		}
 	}
 // option to change image
@@ -68,7 +78,14 @@ public class PuzzleFrame extends JPanel {
 		widthImage = original.getWidth();
 		heightImage = original.getHeight();
 	}
-	
+	public void clearHighlight() {
+		doHighlight = false;
+	}
+	public void highlight(int column, int row) {
+		highlighted[0] = row;
+		highlighted[1] = column;
+		doHighlight = true;
+	}
 	//getter for image height
 	public int getImageHeight() {
 		return heightImage;
@@ -149,7 +166,7 @@ public class PuzzleFrame extends JPanel {
 		BufferedImage firstImage = scrambledImages[firsty][firstx];
 		scrambledImages[firsty][firstx] = scrambledImages[secondy][secondx];
 		scrambledImages[secondy][secondx] = firstImage;
-
+		move ++;
 	}
 }
 //
