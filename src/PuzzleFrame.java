@@ -73,7 +73,12 @@ public class PuzzleFrame extends JPanel {
 		try {
 			original = ImageIO.read(new File(filePath));
 		} catch (IOException e) {
-			e.printStackTrace();
+			try {
+				original = ImageIO.read(new File("kittens.jpg"));
+			}
+			catch (IOException ex) {
+				e.printStackTrace();
+			}
 		}
 		widthImage = original.getWidth();
 		heightImage = original.getHeight();
