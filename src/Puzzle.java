@@ -78,10 +78,21 @@ public class Puzzle implements ActionListener, MouseListener{
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource().equals(makePuzzle)) {
+			puzzleFrame.move = 0;
+			//inserts kittens and 3X3 if text fields are blank
+			if (filepathtf.getText().length() == 0) {
+				filepathtf.setText("kittens.jpg");
+			}
 			String filePath = filepathtf.getText();
 			//System.out.println(filePath);
 			puzzleFrame.changeImage(filePath);
+			if (rowtf.getText().length() == 0) {
+				rowtf.setText("3");
+			}
 			puzzleFrame.setRows(Integer.parseInt(rowtf.getText()));
+			if (columntf.getText().length() == 0) {
+				columntf.setText("3");
+			}
 			puzzleFrame.setColumns(Integer.parseInt(columntf.getText()));
 			frame.setSize(puzzleFrame.getImageWidth(), puzzleFrame.getImageHeight() + 60);
 			puzzleFrame.splitImage();
