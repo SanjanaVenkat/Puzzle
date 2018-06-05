@@ -1,3 +1,7 @@
+//Grace Hunter and Sanjana Venkat
+//June 1, 2018
+//Java puzzle project, scrambles and image for user to put back together as puzzle, tells them when they have correctly solved it
+//imports
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.Graphics;
@@ -9,7 +13,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
-
+import javax.swing.JOptionPane;
 import javax.imageio.ImageIO;
 import javax.swing.JButton;
 import javax.swing.JFrame;
@@ -17,7 +21,7 @@ import javax.swing.JLabel;
 import javax.swing.JTextField;
 
 public class Puzzle implements ActionListener, MouseListener{
-
+//frame set up and variables
 	JFrame frame = new JFrame();
 	PuzzleFrame puzzleFrame = new PuzzleFrame();
 	JLabel rowlb = new JLabel("Rows:");
@@ -36,7 +40,7 @@ public class Puzzle implements ActionListener, MouseListener{
 	final int FIRST = 1;
 	final int SECOND = 2;
 	int state = NOT_PLAYING;
-	
+	//frame layout
 	public Puzzle() {
 	frame.setSize(1000, 1000);
 	frame.setLayout(new BorderLayout());
@@ -54,9 +58,9 @@ public class Puzzle implements ActionListener, MouseListener{
 	frame.add(south, BorderLayout.SOUTH);
 	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 	frame.setVisible(true);	
-
+//starts with kitten image on screen
 	try {
-		original = ImageIO.read(new File("greencar2.png"));
+		original = ImageIO.read(new File("kittens.jpg"));
 	} catch (IOException e) {
 		e.printStackTrace();
 	}
@@ -66,21 +70,24 @@ public class Puzzle implements ActionListener, MouseListener{
 		// TODO Auto-generated method stub
 		new Puzzle();
 	}
-
+// when make puzzle is clicked
+	// reads from filepath for image
+	//reads in rows and columns to divide image
+	//splits and scrambles images, repaints frame
 	@Override
 	public void actionPerformed(ActionEvent e) {
 		// TODO Auto-generated method stub
 		if(e.getSource().equals(makePuzzle)) {
 			String filePath = filepathtf.getText();
-			System.out.println(filePath);
+			//System.out.println(filePath);
 			puzzleFrame.changeImage(filePath);
 			puzzleFrame.setRows(Integer.parseInt(rowtf.getText()));
 			puzzleFrame.setColumns(Integer.parseInt(columntf.getText()));
 			frame.setSize(puzzleFrame.getImageWidth(), puzzleFrame.getImageHeight() + 60);
 			puzzleFrame.splitImage();
-			System.out.println("split images has been run. new images is this long: " + puzzleFrame.newImages.length);
+			//System.out.println("split images has been run. new images is this long: " + puzzleFrame.newImages.length);
 			puzzleFrame.scrambleImages();
-			System.out.println("Scramble has been run");
+			//System.out.println("Scramble has been run");
 			state = FIRST;
 			frame.repaint();
 		}
@@ -111,9 +118,10 @@ public class Puzzle implements ActionListener, MouseListener{
 	}
 
 	@Override
+	//swaps two images based on their location when the mouse has been released
 	public void mouseReleased(MouseEvent e) {
 		// TODO Auto-generated method stub
-		System.out.println(e.getX() + "," + e.getY());
+		//System.out.println(e.getX() + "," + e.getY());
 		int x = e.getX();
 		int y = e.getY();
 		int widthSq = puzzleFrame.getImageWidth() / puzzleFrame.getColumns();
@@ -122,7 +130,7 @@ public class Puzzle implements ActionListener, MouseListener{
 			//calculate indexes and store as first x and first y
 			firstx = x / widthSq;
 			firsty = y / heightSq;
-			System.out.println("firstx,y: " + firstx + "," + firsty);
+			//System.out.println("firstx,y: " + firstx + "," + firsty);
 			//highlight
 			
 			state = SECOND;
@@ -135,8 +143,12 @@ public class Puzzle implements ActionListener, MouseListener{
 			puzzleFrame.swap(firstx, firsty, secondx, secondy);
 			frame.repaint();
 			puzzleFrame.checkWin();
+			 if (puzzleFrame.checkWin() == true) {
+				 JOptionPane.showMessageDialog(frame, "Congratulations! You have solved the puzzle!");
+			 }
 			//check correct
 			state = FIRST;
 		}
 	}
+	
 }

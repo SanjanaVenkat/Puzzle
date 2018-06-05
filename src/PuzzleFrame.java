@@ -1,13 +1,17 @@
+//Grace Hunter and Sanjana Venkat
+//June 1, 2018
+//Java puzzle project, scrambles and image for user to put back together as puzzle, tells them when they have correctly solved it
+//imports
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
 import javax.imageio.ImageIO;
 import javax.swing.JPanel;
 
 public class PuzzleFrame extends JPanel {
+	//variables
 	int rows;
 	int columns;
 	BufferedImage original;
@@ -18,39 +22,43 @@ public class PuzzleFrame extends JPanel {
 	boolean drawImage;
 	boolean won = false;
 	
-	
+	//starts with kitten image
 	public PuzzleFrame() {
 		super();
 		try {
-			original = ImageIO.read(new File("greencar2.png"));
+			original = ImageIO.read(new File("kittens.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
 	}
+	//paints original frame
 	public void paintComponent(Graphics g) {
 		super.paintComponent(g);
 		g.setColor(Color.PINK);
 		g.fillRect(0, 0, getWidth(), getHeight());
 		if (drawImage == false) {
 		drawOriginal(g);
-		System.out.println("drew original");
+		//System.out.println("drew original");
 		}
+		//drawn new image
 		else {
 		  drawnewImages(g);
 		}
 	}
+	//draws original kittens
 	public void drawOriginal(Graphics g) {
 		g.drawImage(original, 0, 0, null);
 	}
+	//draws puzzle of scrambled images
 	public void drawnewImages(Graphics g) {
-		System.out.println("drawing puzzle");
-		printScrambled();
+		//System.out.println("drawing puzzle");
 		for (int i = 0; i < scrambledImages.length; i++) {
 			for (int j = 0; j < scrambledImages[0].length; j++) {
 				g.drawImage(scrambledImages[i][j], (original.getWidth() / columns) * j, (original.getHeight() / rows) * i, null );
 			}
 		}
 	}
+// option to change image
 	public void changeImage(String filePath) {
 		try {
 			original = ImageIO.read(new File(filePath));
@@ -69,7 +77,7 @@ public class PuzzleFrame extends JPanel {
 	public int getImageWidth() {
 		return widthImage;
 	}
-	
+	//rows and columns set up
 	public void setRows(int rows2) {
 		rows = rows2;
 	}
@@ -82,27 +90,29 @@ public class PuzzleFrame extends JPanel {
 	public int getColumns() {
 		return columns;
 	}
+	//splits up image based on height, width, rows, and columns
 	public void splitImage() {
 		newImages = new BufferedImage[rows][columns];
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
 				int x = original.getWidth();
 				int y = original.getHeight();
-				System.out.println("i: " + i);
-				System.out.println("j " + j);
-				System.out.println("dimension: " + x + "x" + y);
-				System.out.println("startx " + (original.getHeight() / rows) * i);
-				System.out.println("starty " + (original.getWidth() / columns) * j);
-				System.out.println("width " + original.getWidth() / columns);
-				System.out.println("height " + original.getHeight() / rows);
+				//System.out.println("i: " + i);
+				//System.out.println("j " + j);
+				//System.out.println("dimension: " + x + "x" + y);
+				//System.out.println("startx " + (original.getHeight() / rows) * i);
+				//System.out.println("starty " + (original.getWidth() / columns) * j);
+				//System.out.println("width " + original.getWidth() / columns);
+				//System.out.println("height " + original.getHeight() / rows);
 				newImages[i][j] = original.getSubimage((original.getWidth() / columns) * j, (original.getHeight() / rows) * i,
 						original.getWidth() / columns, original.getHeight() / rows);
 			}
 		}
 	}
+	//randomly scrambles split up images and paints image onto frame
 	public void scrambleImages() {
 		scrambledImages = new BufferedImage[rows][columns];
-		System.out.println(newImages.length);
+		//System.out.println(newImages.length);
 		for (int i = 0; i < scrambledImages.length; i++) {
 			for (int j = 0; j < scrambledImages[i].length; j++) {
 				int newi = (int)( Math.random() * rows);
@@ -112,29 +122,15 @@ public class PuzzleFrame extends JPanel {
 					newi = (int)( Math.random() * rows);
 					newj = (int)( Math.random() * columns);
 				}
-				System.out.println(i + '.' + j);
+				//System.out.println(i + '.' + j);
 				scrambledImages[newi][newj] = newImages[i][j];
 			}
-			printScrambled();
+		
 		}
 		drawImage = true;
 
 	}
-	public void printScrambled() {
-		String outline = "";
-		for (int i = 0; i < scrambledImages.length; i++) {
-			for (int j = 0; j < scrambledImages[i].length; j++) {
-				if(scrambledImages[i][j] == null) {
-					outline += "O";
-				}
-				else {
-					outline += "X";
-				}
-			}
-			System.out.println(outline);
-			outline = "";
-		}
-	}
+//checks if scrambled array matches original image
 	public boolean checkWin() {
 	for (int i = 0; i < scrambledImages.length; i++) {
 		for (int j = 0; j < scrambledImages[i].length; j++) {
@@ -143,16 +139,12 @@ public class PuzzleFrame extends JPanel {
 			}
 		}
 	}
-	showCompleted();
+	
 	return true;
 	}
 	
-	public void showCompleted() {
-		
-			System.out.println("You have solved the puzzle!");
-		
-		}
-
+	
+//swaps images
 	public void swap(int firstx, int firsty, int secondx, int secondy) {
 		BufferedImage firstImage = scrambledImages[firsty][firstx];
 		scrambledImages[firsty][firstx] = scrambledImages[secondy][secondx];
