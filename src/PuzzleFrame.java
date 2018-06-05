@@ -29,7 +29,7 @@ public class PuzzleFrame extends JPanel {
 	public PuzzleFrame() {
 		super();
 		try {
-			original = ImageIO.read(new File("kittens.jpg"));
+			original = ImageIO.read(new File("PuzzleBackground.jpg"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

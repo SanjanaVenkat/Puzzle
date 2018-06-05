@@ -42,7 +42,7 @@ public class Puzzle implements ActionListener, MouseListener{
 	int state = NOT_PLAYING;
 	//frame layout
 	public Puzzle() {
-	frame.setSize(1000, 1000);
+	frame.setSize(960, 720);
 	frame.setLayout(new BorderLayout());
 	south.setLayout(new GridLayout(1,7));
 	south.add(filepathlb);
@@ -60,7 +60,7 @@ public class Puzzle implements ActionListener, MouseListener{
 	frame.setVisible(true);	
 //starts with kitten image on screen
 	try {
-		original = ImageIO.read(new File("kittens.jpg"));
+		original = ImageIO.read(new File("PuzzleBackground.jpg"));
 	} catch (IOException e) {
 		e.printStackTrace();
 	}
@@ -146,7 +146,7 @@ public class Puzzle implements ActionListener, MouseListener{
 			frame.repaint();
 			puzzleFrame.checkWin();
 			 if (puzzleFrame.checkWin() == true) {
-				 JOptionPane.showMessageDialog(frame, "Congratulations! You have solved the puzzle!");
+				 JOptionPane.showMessageDialog(frame, "Congratulations! You have solved the puzzle! " + "Number of moves: " + puzzleFrame.move);
 			 }
 			//check correct
 			
