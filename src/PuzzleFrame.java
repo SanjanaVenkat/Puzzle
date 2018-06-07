@@ -75,6 +75,8 @@ public class PuzzleFrame extends JPanel {
 		} catch (IOException e) {
 			try {
 				original = ImageIO.read(new File("kittens.jpg"));
+				widthImage = original.getWidth();
+				heightImage = original.getHeight();
 			}
 			catch (IOException ex) {
 				e.printStackTrace();
@@ -83,6 +85,7 @@ public class PuzzleFrame extends JPanel {
 		widthImage = original.getWidth();
 		heightImage = original.getHeight();
 	}
+	//paints highlight
 	public void clearHighlight() {
 		doHighlight = false;
 	}
