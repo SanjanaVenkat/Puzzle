@@ -1,6 +1,7 @@
-//Grace Hunter and Sanjana Venkat
-//June 1, 2018
+//Authors: Grace Hunter and Sanjana Venkat
+//Date: June 1, 2018
 //Java puzzle project, scrambles and image for user to put back together as puzzle, tells them when they have correctly solved it
+
 //imports
 import java.awt.BorderLayout;
 import java.awt.Container;
@@ -135,33 +136,35 @@ public class Puzzle implements ActionListener, MouseListener{
 		//System.out.println(e.getX() + "," + e.getY());
 		int x = e.getX();
 		int y = e.getY();
-		int widthSq = puzzleFrame.getImageWidth() / puzzleFrame.getColumns();
-		int heightSq = puzzleFrame.getImageHeight() / puzzleFrame.getRows();
-		if(state == FIRST) {
-			//calculate indexes and store as first x and first y
-			firstx = x / widthSq;
-			firsty = y / heightSq;
-			//System.out.println("firstx,y: " + firstx + "," + firsty);
-			//highlight
-			puzzleFrame.highlight(firstx, firsty);
-			frame.repaint();
-			state = SECOND;
-			
-		}
-		else if(state == SECOND) {
-			//calculate indexes of second image and swap.
-			int secondx = x / widthSq;
-			int secondy = y / heightSq;
-			puzzleFrame.swap(firstx, firsty, secondx, secondy);
-			puzzleFrame.clearHighlight();
-			frame.repaint();
-			puzzleFrame.checkWin();
-			 if (puzzleFrame.checkWin() == true) {
-				 JOptionPane.showMessageDialog(frame, "Congratulations! You have solved the puzzle! " + "Number of moves: " + puzzleFrame.move);
-			 }
-			//check correct
-			
-			state = FIRST;
+		if(y <= puzzleFrame.getImageHeight() && x <= puzzleFrame.getImageWidth()) {
+			int widthSq = puzzleFrame.getImageWidth() / puzzleFrame.getColumns();
+			int heightSq = puzzleFrame.getImageHeight() / puzzleFrame.getRows();
+			if(state == FIRST) {
+				//calculate indexes and store as first x and first y
+				firstx = x / widthSq;
+				firsty = y / heightSq;
+				//System.out.println("firstx,y: " + firstx + "," + firsty);
+				//highlight
+				puzzleFrame.highlight(firstx, firsty);
+				frame.repaint();
+				state = SECOND;
+				
+			}
+			else if(state == SECOND) {
+				//calculate indexes of second image and swap.
+				int secondx = x / widthSq;
+				int secondy = y / heightSq;
+				puzzleFrame.swap(firstx, firsty, secondx, secondy);
+				puzzleFrame.clearHighlight();
+				frame.repaint();
+				puzzleFrame.checkWin();
+				 if (puzzleFrame.checkWin() == true) {
+					 JOptionPane.showMessageDialog(frame, "Congratulations! You have solved the puzzle! " + "Number of moves: " + puzzleFrame.move);
+				 }
+				//check correct
+				
+				state = FIRST;
+			}
 		}
 	}
 	

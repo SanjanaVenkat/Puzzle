@@ -1,6 +1,7 @@
 //Grace Hunter and Sanjana Venkat
 //June 1, 2018
 //Java puzzle project, scrambles and image for user to put back together as puzzle, tells them when they have correctly solved it
+//Puzzle Frame Class: splits image and handles swapping, draws all images
 //imports
 import java.awt.Color;
 import java.awt.Graphics;
