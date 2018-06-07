@@ -37,9 +37,10 @@ public class Puzzle implements ActionListener, MouseListener{
 	Image original; 
 	int firstx;
 	int firsty;
-	final int NOT_PLAYING = 0;
-	final int FIRST = 1;
-	final int SECOND = 2;
+	//ints for states of playing
+	final int NOT_PLAYING = 0; //game has not started
+	final int FIRST = 1; //waiting for first image to be clicked
+	final int SECOND = 2; //waiting for second image to be clicked
 	int state = NOT_PLAYING;
 	//frame layout
 	public Puzzle() {
@@ -68,7 +69,6 @@ public class Puzzle implements ActionListener, MouseListener{
 	
 	}
 	public static void main(String[] args) {
-		// TODO Auto-generated method stub
 		new Puzzle();
 	}
 // when make puzzle is clicked
@@ -132,10 +132,10 @@ public class Puzzle implements ActionListener, MouseListener{
 	@Override
 	//swaps two images based on their location when the mouse has been released
 	public void mouseReleased(MouseEvent e) {
-		// TODO Auto-generated method stub
 		//System.out.println(e.getX() + "," + e.getY());
 		int x = e.getX();
 		int y = e.getY();
+		//won't run if click is outside range of image
 		if(y <= puzzleFrame.getImageHeight() && x <= puzzleFrame.getImageWidth()) {
 			int widthSq = puzzleFrame.getImageWidth() / puzzleFrame.getColumns();
 			int heightSq = puzzleFrame.getImageHeight() / puzzleFrame.getRows();

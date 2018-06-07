@@ -15,20 +15,21 @@ public class PuzzleFrame extends JPanel {
 	//variables
 	int rows;
 	int columns;
-	BufferedImage original;
+	BufferedImage original; //image to be scrambled
 	BufferedImage[][] newImages;
 	BufferedImage[][] scrambledImages;
 	final Color highlight = new Color(153, 50, 204, 150);
-	int[] highlighted = new int[2];
+	int[] highlighted = new int[2]; //indexes of highlighted square
 	boolean doHighlight = false;
 	int widthImage;
 	int heightImage;
-	boolean drawImage;
+	boolean drawImage; //whether the scrambled image has been created yet
 	boolean won = false;
 	int move = 0;
 	//starts with kitten image
 	public PuzzleFrame() {
 		super();
+		//show the instruction image upon opening
 		try {
 			original = ImageIO.read(new File("PuzzleBackground.jpg"));
 		} catch (IOException e) {
@@ -42,10 +43,8 @@ public class PuzzleFrame extends JPanel {
 		g.fillRect(0, 0, getWidth(), getHeight());
 		if (drawImage == false) {
 		drawOriginal(g);
-	
-
 		}
-		//drawn new image
+		//drawn scrambled images
 		else {
 		  drawnewImages(g);
 		}
@@ -56,20 +55,19 @@ public class PuzzleFrame extends JPanel {
 	}
 	//draws puzzle of scrambled images
 	public void drawnewImages(Graphics g) {
-
+		//draw each image in correct location
 		for (int i = 0; i < scrambledImages.length; i++) {
 			for (int j = 0; j < scrambledImages[0].length; j++) {
 				g.drawImage(scrambledImages[i][j], (original.getWidth() / columns) * j, (original.getHeight() / rows) * i, null );
 			}
 		}
-		//System.out.println(highlighted[0] + "," + highlighted[1]);
-		if(doHighlight) {
-			//System.out.println("highlighting!");
+		//highlight if needed
+		if(doHighlight) { 
 			g.setColor(highlight);
 			g.fillRect(highlighted[1] * (widthImage / columns), highlighted[0] * (heightImage / rows), widthImage / columns, heightImage / rows);
 		}
 	}
-// option to change image
+//change the image, taking anew image file path, defaults to Kittens.jpg if invalid
 	public void changeImage(String filePath) {
 		try {
 			original = ImageIO.read(new File(filePath));
@@ -84,9 +82,11 @@ public class PuzzleFrame extends JPanel {
 		widthImage = original.getWidth();
 		heightImage = original.getHeight();
 	}
+	//don't highlight
 	public void clearHighlight() {
 		doHighlight = false;
 	}
+	//set which image to highlight
 	public void highlight(int column, int row) {
 		highlighted[0] = row;
 		highlighted[1] = column;
@@ -100,7 +100,7 @@ public class PuzzleFrame extends JPanel {
 	public int getImageWidth() {
 		return widthImage;
 	}
-	//rows and columns set up
+	//rows and columns setters
 	public void setRows(int rows2) {
 		rows = rows2;
 	}
@@ -113,61 +113,52 @@ public class PuzzleFrame extends JPanel {
 	public int getColumns() {
 		return columns;
 	}
-	//splits up image based on height, width, rows, and columns
+	
+	//splits up image into an array based on height, width, rows, and columns
 	public void splitImage() {
 		newImages = new BufferedImage[rows][columns];
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
 				int x = original.getWidth();
 				int y = original.getHeight();
-				//System.out.println("i: " + i);
-				//System.out.println("j " + j);
-				//System.out.println("dimension: " + x + "x" + y);
-				//System.out.println("startx " + (original.getHeight() / rows) * i);
-				//System.out.println("starty " + (original.getWidth() / columns) * j);
-				//System.out.println("width " + original.getWidth() / columns);
-				//System.out.println("height " + original.getHeight() / rows);
 				newImages[i][j] = original.getSubimage((original.getWidth() / columns) * j, (original.getHeight() / rows) * i,
 						original.getWidth() / columns, original.getHeight() / rows);
 			}
 		}
 	}
-	//randomly scrambles split up images and paints image onto frame
+	//randomly scrambles split up images into a new array
 	public void scrambleImages() {
 		scrambledImages = new BufferedImage[rows][columns];
-		//System.out.println(newImages.length);
 		for (int i = 0; i < scrambledImages.length; i++) {
 			for (int j = 0; j < scrambledImages[i].length; j++) {
+				//generate random indexes
 				int newi = (int)( Math.random() * rows);
 				int newj = (int)( Math.random() * columns);
+				//if the correct spot or there is  already an image there, generate new indexes
 				while (newi == i && newj == j || scrambledImages[newi][newj] != null) {
-					//System.out.println("i: " + i + " j: " + j);
 					newi = (int)( Math.random() * rows);
 					newj = (int)( Math.random() * columns);
 				}
-				//System.out.println(i + '.' + j);
 				scrambledImages[newi][newj] = newImages[i][j];
 			}
 		
 		}
 		drawImage = true;
-
 	}
 //checks if scrambled array matches original image
 	public boolean checkWin() {
-	for (int i = 0; i < scrambledImages.length; i++) {
-		for (int j = 0; j < scrambledImages[i].length; j++) {
-			if (scrambledImages[i][j] != newImages[i][j]) {
-				return false;
+		for (int i = 0; i < scrambledImages.length; i++) {
+			for (int j = 0; j < scrambledImages[i].length; j++) {
+				if (scrambledImages[i][j] != newImages[i][j]) {
+					return false;
+				}
 			}
 		}
+		return true;
 	}
 	
-	return true;
-	}
 	
-	
-//swaps images
+//swaps images, given the array indexes of the two images
 	public void swap(int firstx, int firsty, int secondx, int secondy) {
 		BufferedImage firstImage = scrambledImages[firsty][firstx];
 		scrambledImages[firsty][firstx] = scrambledImages[secondy][secondx];
@@ -175,4 +166,3 @@ public class PuzzleFrame extends JPanel {
 		move ++;
 	}
 }
-//
