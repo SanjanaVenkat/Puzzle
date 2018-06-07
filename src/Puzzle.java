@@ -5,7 +5,6 @@
 //imports
 import java.awt.BorderLayout;
 import java.awt.Container;
-import java.awt.Graphics;
 import java.awt.GridLayout;
 import java.awt.Image;
 import java.awt.event.ActionEvent;
@@ -42,31 +41,33 @@ public class Puzzle implements ActionListener, MouseListener{
 	final int FIRST = 1; //waiting for first image to be clicked
 	final int SECOND = 2; //waiting for second image to be clicked
 	int state = NOT_PLAYING;
-	//frame layout
-	public Puzzle() {
-	frame.setSize(960, 720);
-	frame.setLayout(new BorderLayout());
-	south.setLayout(new GridLayout(1,7));
-	south.add(filepathlb);
-	south.add(filepathtf);
-	south.add(rowlb);
-	south.add(rowtf);
-	south.add(columnlb);
-	south.add(columntf);
-	south.add(makePuzzle);
-	frame.add(puzzleFrame, BorderLayout.CENTER);
-	makePuzzle.addActionListener(this);
-	frame.addMouseListener(this);
-	frame.add(south, BorderLayout.SOUTH);
-	frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	frame.setVisible(true);	
-//starts with kitten image on screen
-	try {
-		original = ImageIO.read(new File("PuzzleBackground.jpg"));
-	} catch (IOException e) {
-		e.printStackTrace();
-	}
 	
+	//puzzle class constructor
+	public Puzzle() {
+		//add frame elements to frame
+		frame.setSize(960, 720);
+		frame.setLayout(new BorderLayout());
+		south.setLayout(new GridLayout(1,7));
+		south.add(filepathlb);
+		south.add(filepathtf);
+		south.add(rowlb);
+		south.add(rowtf);
+		south.add(columnlb);
+		south.add(columntf);
+		south.add(makePuzzle);
+		frame.add(puzzleFrame, BorderLayout.CENTER);
+		makePuzzle.addActionListener(this);
+		frame.addMouseListener(this);
+		frame.add(south, BorderLayout.SOUTH);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setVisible(true);	
+		
+		//starts with kitten image on screen
+		try {
+			original = ImageIO.read(new File("PuzzleBackground.jpg"));
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	public static void main(String[] args) {
 		new Puzzle();
@@ -104,30 +105,18 @@ public class Puzzle implements ActionListener, MouseListener{
 			frame.repaint();
 		}
 	}
-//
-	@Override
-	public void mouseClicked(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
 
 	@Override
-	public void mouseEntered(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseClicked(MouseEvent arg0) {}
 
 	@Override
-	public void mouseExited(MouseEvent arg0) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseEntered(MouseEvent arg0) {}
 
 	@Override
-	public void mousePressed(MouseEvent e) {
-		// TODO Auto-generated method stub
-		
-	}
+	public void mouseExited(MouseEvent arg0) {}
+
+	@Override
+	public void mousePressed(MouseEvent e) {}
 
 	@Override
 	//swaps two images based on their location when the mouse has been released
@@ -148,7 +137,6 @@ public class Puzzle implements ActionListener, MouseListener{
 				puzzleFrame.highlight(firstx, firsty);
 				frame.repaint();
 				state = SECOND;
-				
 			}
 			else if(state == SECOND) {
 				//calculate indexes of second image and swap.
@@ -161,11 +149,8 @@ public class Puzzle implements ActionListener, MouseListener{
 				 if (puzzleFrame.checkWin() == true) {
 					 JOptionPane.showMessageDialog(frame, "Congratulations! You have solved the puzzle! " + "Number of moves: " + puzzleFrame.move);
 				 }
-				//check correct
-				
 				state = FIRST;
 			}
 		}
 	}
-	
 }

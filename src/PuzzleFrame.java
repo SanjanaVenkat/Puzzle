@@ -67,6 +67,7 @@ public class PuzzleFrame extends JPanel {
 			g.fillRect(highlighted[1] * (widthImage / columns), highlighted[0] * (heightImage / rows), widthImage / columns, heightImage / rows);
 		}
 	}
+	
 //change the image, taking anew image file path, defaults to Kittens.jpg if invalid
 	public void changeImage(String filePath) {
 		try {
@@ -74,6 +75,8 @@ public class PuzzleFrame extends JPanel {
 		} catch (IOException e) {
 			try {
 				original = ImageIO.read(new File("kittens.jpg"));
+				widthImage = original.getWidth();
+				heightImage = original.getHeight();
 			}
 			catch (IOException ex) {
 				e.printStackTrace();
@@ -126,6 +129,7 @@ public class PuzzleFrame extends JPanel {
 			}
 		}
 	}
+	
 	//randomly scrambles split up images into a new array
 	public void scrambleImages() {
 		scrambledImages = new BufferedImage[rows][columns];
@@ -145,6 +149,7 @@ public class PuzzleFrame extends JPanel {
 		}
 		drawImage = true;
 	}
+	
 //checks if scrambled array matches original image
 	public boolean checkWin() {
 		for (int i = 0; i < scrambledImages.length; i++) {
@@ -156,7 +161,6 @@ public class PuzzleFrame extends JPanel {
 		}
 		return true;
 	}
-	
 	
 //swaps images, given the array indexes of the two images
 	public void swap(int firstx, int firsty, int secondx, int secondy) {
